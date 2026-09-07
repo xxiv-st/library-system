@@ -16,7 +16,7 @@ Simple Library Information System built using Laravel. This project is developed
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/USERNAME/library-system.git
+git clone https://github.com/xxiv-st/library-system.git
 ```
 
 ### 2. Enter the project directory
@@ -60,7 +60,7 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=library_system
-DB_USERNAME=xxiv-st
+DB_USERNAME=root
 DB_PASSWORD=
 ```
 
