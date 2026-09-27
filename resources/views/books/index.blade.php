@@ -4,7 +4,10 @@
     <h2>Daftar Buku</h2>
     <ul>
         @foreach($books as $book)
-        <li>{{ $book }}</li>
+        <li><h3>{{ $book->title }}</h3></li>
+        <p> Penulis: {{ $book->author }}</p>
+        <p>Tahun: {{ $book->year }}</p>
+        <p>Stok: {{ $book->stock }}</p>
         @endforeach
     </ul>
 @endsection
