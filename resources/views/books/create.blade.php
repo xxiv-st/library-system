@@ -6,14 +6,6 @@
 @section('content')
     <h2>Tambah Buku</h2>
 
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
     <form action="{{ route('books.store') }}" method="POST">
         @csrf
 
@@ -23,8 +15,11 @@
                 type="text"
                 name="title"
                 value="{{ old('title') }}"
-                required
             >
+
+            @error('title')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <br>
@@ -35,8 +30,11 @@
                 type="text"
                 name="author"
                 value="{{ old('author') }}"
-                required
             >
+
+            @error('author')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <br>
@@ -47,8 +45,11 @@
                 type="number"
                 name="year"
                 value="{{ old('year') }}"
-                required
             >
+
+            @error('year')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <br>
@@ -59,9 +60,11 @@
                 type="number"
                 name="stock"
                 value="{{ old('stock') }}"
-                min="0"
-                required
             >
+
+            @error('stock')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <br>
