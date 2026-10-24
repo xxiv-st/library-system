@@ -23,6 +23,7 @@
                     <th>Judul</th>
                     <th>Penulis</th>
                     <th>Tahun</th>
+                    <th>Kategori</th>
                     <th>Stok</th>
                     <th>Aksi</th>
                 </tr>
@@ -34,6 +35,7 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->year }}</td>
+                        <td>{{ $book->category?->name ?? 'Belum ada kategori' }}</td>
                         <td>{{ $book->stock }}</td>
 
                         <td>
