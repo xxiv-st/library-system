@@ -12,45 +12,48 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/books', [BookController::class, 'index'])
-    ->name('books.index');
-
-Route::get('/books/create', [BookController::class, 'create'])
-    ->name('books.create');
-
-Route::post('/books', [BookController::class, 'store'])
-    ->name('books.store');
-
-Route::get('/books/{book}/edit', [BookController::class, 'edit'])
-    ->name('books.edit');
-
-Route::put('/books/{book}', [BookController::class, 'update'])
-    ->name('books.update');
-
-Route::delete('/books/{book}', [BookController::class, 'destroy'])
-    ->name('books.destroy');
-
-Route::get('/books/{id}', [BookController::class, 'show'])
-    ->name('books.show');
-
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/members', [MemberController::class, 'index']);
-Route::get('/members/{id}', [MemberController::class, 'show']);
-Route::get('/dashboard', [DashboardController::class, 'index']);
-
+// Route yang hanya bisa diakses pengguna yang belum login
 Route::middleware('guest')->group(function () {
+
     Route::get('/login', [AuthController::class, 'showLogin'])
         ->name('login');
 
     Route::post('/login', [AuthController::class, 'login'])
         ->name('login.submit');
+
 });
 
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth')
-    ->name('logout');
+// Route yang hanya bisa diakses pengguna yang sudah login
+Route::middleware(['auth'])->group(function () {
 
-Route::middleware('auth')->group(function () {
-    // Route buku yang hanya boleh diakses setelah login.
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
+    // Modul Buku
     Route::resource('books', BookController::class);
+
+    // Modul Kategori
+    Route::get('/categories', [CategoryController::class, 'index'])
+        ->name('categories.index');
+
+    // Modul Anggota
+    Route::get('/members', [MemberController::class, 'index'])
+        ->name('members.index');
+
+    Route::get('/members/{id}', [MemberController::class, 'show'])
+        ->name('members.show');
+
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
+
+});
+
+// Route khusus admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    // Hanya admin yang boleh mengelola akun pengguna.
+    // Route::resource('users', UserController::class);
+
 });

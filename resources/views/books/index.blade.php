@@ -60,6 +60,20 @@
             </tbody>
         </table>
     @endif
+
+    @can('delete', $book)
+    <form action="{{ route('books.destroy', $book->id) }}"
+          method="POST"
+          onsubmit="return confirm('Yakin ingin menghapus buku ini?')">
+
+        @csrf
+        @method('DELETE')
+
+        <button type="submit">Delete</button>
+    </form>
+    @endcan
+
+
 @endsection
 
 <form action="{{ route('logout') }}" method="POST">
