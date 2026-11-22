@@ -7,6 +7,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BorrowingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,6 +49,19 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
 
+    // Modul Peminjaman
+    Route::get('/borrowings', [BorrowingController::class, 'index'])
+        ->name('borrowings.index');
+
+    Route::get('/borrowings/create', [BorrowingController::class, 'create'])
+        ->name('borrowings.create');
+    
+    Route::post('/borrowings', [BorrowingController::class, 'store'])
+        ->name('borrowings.store');
+    
+    Route::post('/borrowings/{id}/return', [BorrowingController::class, 'returnBook'])
+        ->name('borrowings.return');
+
 });
 
 // Route khusus admin
@@ -57,3 +71,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Route::resource('users', UserController::class);
 
 });
+
+
